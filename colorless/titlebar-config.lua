@@ -98,8 +98,7 @@ function titlebar:init()
 				layout  = wibox.layout.align.horizontal,
 			})
 
-			-- build titlebar model with control buttons
-			local title = redtitle.label(c, style.iconic, true)
+			title = redtitle.label(c, style.iconic, true)
 			title:buttons(buttons)
 
 			local iconic = wibox.widget({
@@ -107,7 +106,9 @@ function titlebar:init()
 					{
 						redtitle.button.focus(c, style.icon),
 						redtitle.button.property(c, "ontop", style.icon),
+						redtitle.button.property(c, "sticky", style.icon),
 						redtitle.button.property(c, "below", style.icon),
+						redtitle.button.property(c, "floating", style.icon),
 						spacing = style.icon.gap,
 						layout = wibox.layout.fixed.horizontal()
 					},
@@ -117,8 +118,6 @@ function titlebar:init()
 				title,
 				{
 					{
-						redtitle.button.property(c, "floating", style.icon),
-						redtitle.button.property(c, "sticky", style.icon),
 						redtitle.button.property(c, "minimized", style.icon),
 						redtitle.button.property(c, "maximized", style.icon),
 						redtitle.button.close(c, style.icon),
@@ -132,8 +131,8 @@ function titlebar:init()
 			})
 
 			-- Set both models to titlebar
-			redtitle.add_layout(c, nil, base, style.base.size)
 			redtitle.add_layout(c, nil, iconic, style.iconic.size)
+			redtitle.add_layout(c, nil, base, style.base.size)
 			redtitle.switch(c, nil, redtitle._index)
 
 			-- hide titlebar when window maximized

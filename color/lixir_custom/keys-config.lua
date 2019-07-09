@@ -950,13 +950,13 @@ function hotkeys:init(args)
         },
         {
             { env.mod, "Shift" }, "t", function()
-            redtitle.toggle_all()
+            redtitle.global_toggle(client.focus)
         end,
             { description = "Show/hide titlebar for all clients", group = "Titlebar" }
         },
         {
             { env.mod, "Control", "Shift" }, "t", function()
-            redtitle.switch_all()
+            redtitle.global_switch()
         end,
             { description = "Switch titlebar view for all clients", group = "Titlebar" }
         },

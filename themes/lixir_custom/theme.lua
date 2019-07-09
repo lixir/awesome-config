@@ -45,23 +45,25 @@ theme.wallpaper = "/home/lixir/Pictures/devushka-naushniki-sineva-717140a.jpg" -
 -- Fonts
 ------------------------------------------------------------
 theme.fonts = {
-	main     = "Roboto 13",      -- main font
-	menu     = "Roboto 13",      -- main menu font
-	tooltip  = "Roboto 13",      -- tooltip font
-	notify   = "Play bold 13",   -- redflat notify popup font
-	clock    = "Play bold 12",   -- textclock widget font
-	qlaunch  = "Play bold 14",   -- quick launch key label font
-	keychain = "Play bold 16",   -- key sequence tip font
-	title    = "Roboto bold 13", -- widget titles font
-	titlebar = "Roboto bold 13", -- client titlebar font
-	hotkeys  = {
-		main  = "Roboto 14",             -- hotkeys helper main font
-		key   = "Iosevka Term Light 14", -- hotkeys helper key font (use monospace for align)
-		title = "Roboto bold 16",        -- hotkeys helper group title font
+	main            = "Roboto 13",      -- main font
+	menu            = "Roboto 13",      -- main menu font
+	tooltip         = "Roboto 13",      -- tooltip font
+	notify          = "Play bold 13",   -- redflat notify popup font
+	clock           = "Play bold 12",   -- textclock widget font
+	qlaunch         = "Play bold 14",   -- quick launch key label font
+	keychain        = "Play bold 16",   -- key sequence tip font
+	title           = "Roboto bold 13", -- widget titles font
+	titlebar        = "Roboto bold 13", -- client titlebar font
+	titlebar_bold   = "Roboto 2",
+	titlebar_iconic = "Roboto bold 13",  
+	hotkeys         = {
+		main        = "Roboto 14",             -- hotkeys helper main font
+		key         = "Iosevka Term Light 14", -- hotkeys helper key font (use monospace for align)
+		title       = "Roboto bold 16",        -- hotkeys helper group title font
 	},
-	player   = {
-		main = "Play bold 13", -- player widget main font
-		time = "Play bold 15", -- player widget current time font
+	player          = {
+		main        = "Play bold 13", -- player widget main font
+		time        = "Play bold 15", -- player widget current time font
 	},
 }
 
@@ -332,7 +334,7 @@ theme.gauge.audio.blue = {
 	dash    = { bar = { num = 10, width = 4 }, color = theme.color },
 	dmargin = { 10, 0, 2, 2 },
 	icon    = theme.path .. "/widget/headphones.svg",
-	color = { icon = theme.color.icon, mute = theme.color.urgent },
+	color   = { icon = theme.color.icon, mute = theme.color.urgent },
 }
 
 
@@ -382,10 +384,20 @@ theme.widget.keyboard = {
 	layout_color = { theme.color.icon, theme.color.main }
 }
 
+theme.widget.keyboard.first_language = {
+	icon 		= theme.path .. "/widget/english.svg",
+	micon       = theme.icon
+}
+
+theme.widget.keyboard.second_language = {
+	icon 		= theme.path .. "/widget/russian.svg",
+	micon       = theme.icon
+}
+
 theme.widget.keyboard.menu = {
 	width        = 180,
 	color        = { right_icon = theme.color.icon },
-	nohide       = true
+	nohide       = false
 }
 
 -- Upgrades
@@ -406,14 +418,10 @@ theme.widget.mail = {
 -- Minitray
 ------------------------------------------------------------
 theme.widget.minitray = {
-	border_width = 0,
+	border_width = 1,
 	geometry     = { height = 40 },
 	screen_gap   = 2 * theme.useless_gap,
 	color        = { wibox = theme.color.wibox, border = theme.color.wibox },
-	set_position = function()
-		return { x = mouse.screen.workarea.x + mouse.screen.workarea.width,
-		         y = mouse.screen.workarea.y + mouse.screen.workarea.height }
-	end,
 }
 
 -- Layoutbox
@@ -644,7 +652,7 @@ theme.float.qlaunch = {
 
 -- Hotkeys helper
 ------------------------------------------------------------
-theme.float.hotkeys = {
+theme.float.hotkeys =  {
 	geometry      = { width = 1800, height = 1000 },
 	border_margin = { 20, 20, 8, 10 },
 	border_width  = 0,
@@ -685,10 +693,6 @@ theme.float.top = {
 	bottom_height = 70,
 	title_font    = theme.fonts.title,
 	color         = theme.color,
-	set_position  = function()
-		return { x = mouse.screen.workarea.x + mouse.screen.workarea.width,
-		         y = mouse.screen.workarea.y + mouse.screen.workarea.height }
-	end,
 }
 
 -- Key sequence tip
@@ -735,12 +739,12 @@ theme.float.decoration.field = {
 -- Titlebar
 -----------------------------------------------------------------------------------------------------------------------
 --[[theme.titlebar = {
-	size          = 8,
+	size          = 12,
 	position      = "top",
 	font          = theme.fonts.titlebar,
 	icon          = { size = 30, gap = 10 },
 	border_margin = { 0, 0, 0, 4 },
-	color         = theme.color,
+	color         = theme.color.main,
 }]]
 
 -- Naughty config

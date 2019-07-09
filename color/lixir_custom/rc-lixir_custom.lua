@@ -260,8 +260,8 @@ awful.screen.connect_for_each_screen(
 			{ -- right widgets
 				layout = wibox.layout.fixed.horizontal,
 
-				separator,
-				env.wrapper(mail.widget, "mail", mail.buttons),
+				--separator,
+				--env.wrapper(mail.widget, "mail", mail.buttons),
 				separator,
 				env.wrapper(kbindicator.widget, "keyboard", kbindicator.buttons),
 				separator,
@@ -284,7 +284,7 @@ awful.screen.connect_for_each_screen(
 -- Desktop widgets
 -----------------------------------------------------------------------------------------------------------------------
 --if not lock.desktop then
---	local desktop = require("color.blue.desktop-config") -- load file with desktop widgets configuration
+--	local desktop = require("color.lixir_custom.desktop-config") -- load file with desktop widgets configuration
 --	desktop:init({
 --		env = env,
 --		buttons = awful.util.table.join(awful.button({}, 3, function () mymenu.mainmenu:toggle() end))
@@ -294,7 +294,7 @@ awful.screen.connect_for_each_screen(
 
 -- Active screen edges
 -----------------------------------------------------------------------------------------------------------------------
-local edges = require("color.blue.edges-config") -- load file with edges configuration
+local edges = require("color.lixir_custom.edges-config") -- load file with edges configuration
 edges:init()
 
 
@@ -314,8 +314,8 @@ rules:init({ hotkeys = hotkeys})
 
 -- Titlebar setup
 -----------------------------------------------------------------------------------------------------------------------
-  local titlebar = require("colorless.titlebar-config") -- load file with titlebar configuration
-  titlebar:init()
+local titlebar = require("colorless.titlebar-config") -- load file with titlebar configuration
+titlebar:init()
 
 
 -- Base signal set for awesome wm
@@ -327,6 +327,6 @@ signals:init({ env = env })
 -- Autostart user applications
 -----------------------------------------------------------------------------------------------------------------------
 if redflat.startup.is_startup then
-	local autostart = require("color.blue.autostart-config") -- load file with autostart application list
+	local autostart = require("color.lixir_custom.autostart-config") -- load file with autostart application list
 	autostart.run()
 end
