@@ -27,7 +27,7 @@ function env:init(args)
 	self.mod = args.mod or "Mod4"
 	self.fm = args.fm or "pcmanfm"
 	self.mail = args.mail or "evolution"
-	self.player = args.player or "exaile"
+	self.player = args.player or "mpv"
 	self.upgrades = args.upgrades or "bash -c 'pacman -Qu | grep -v ignored | wc -l'"
 	self.home = os.getenv("HOME")
 	self.themedir = awful.util.get_configuration_dir() .. "themes/" .. theme
@@ -60,9 +60,9 @@ end
 -- Wallpaper setup
 --------------------------------------------------------------------------------
 env.wallpaper = function(s)
-	if beautiful.wallpaper then
-		if awful.util.file_readable(beautiful.wallpaper) then
-			gears.wallpaper.maximized(beautiful.wallpaper, s, true)
+	if beautiful.wallpaper[1] then
+		if awful.util.file_readable(beautiful.wallpaper[1]) then
+			gears.wallpaper.maximized(beautiful.wallpaper[1], s)
 		else
 			gears.wallpaper.set(beautiful.color.bg)
 		end

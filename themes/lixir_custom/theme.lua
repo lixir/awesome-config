@@ -40,7 +40,13 @@ theme.useless_gap         = 0  -- useless gap
 
 theme.cellnum = { x = 96, y = 58 } -- grid layout property
 
-theme.wallpaper = "/home/lixir/Pictures/devushka-naushniki-sineva-717140a.jpg" -- wallpaper file
+theme.wallpaper = { "/home/lixir/Pictures/wallpapers/neon_avtomobil_siluet_142576_1920x1080.jpg",
+                    "/home/lixir/Pictures/devushka-naushniki-sineva-717140a.jpg",
+                    "/home/lixir/Pictures/wallpapers/nochnoj_gorod_ulitsa_dvizhenie_136616_1920x1080.jpg",
+                    "/home/lixir/Pictures/wallpapers/neboskreb_zdanie_arkhitektura_nebo_vid_snizu_118409_1920x1080.jpg",
+                    "/home/lixir/Pictures/wallpapers/severnoe_siyanie_noch_zvezdnoe_nebo_yavlenie_73483_1920x1080.jpg",
+                    }
+                    -- wallpaper files
 
 -- Fonts
 ------------------------------------------------------------

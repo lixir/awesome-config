@@ -3,7 +3,7 @@
 -----------------------------------------------------------------------------------------------------------------------
 
 -- Grab environment
-local awful =require("awful")
+local awful = require("awful")
 local beautiful = require("beautiful")
 local redtitle = require("redflat.titlebar")
 
@@ -67,12 +67,73 @@ function rules:init(args)
 		{
 			rule_any   = { type = { "normal", "dialog" }},
 			except_any = self.titlebar_exeptions,
-			properties = { titlebars_enabled = true }
+			properties = { titlebars_enabled = true },
+		},
+        {
+            rule_any   = { type = { "normal" }},
+            properties = { placement = awful.placement.no_overlap + awful.placement.no_offscreen },
+            callback   = function(c)
+                redtitle.hide(c)
+            end
+        },
+		{
+			rule_any   = { type = {"dialog"}},
+            properties = { floating = true },
+			callback   = function(c)
+				redtitle.show(c)
+			end
 		},
 		{
-			rule_any   = { type = { "normal" }},
-			properties = { placement = awful.placement.no_overlap + awful.placement.no_offscreen }
-		}
+			rule = { name = "Chromium" },
+			properties = { tag = "Интернет" }
+		},
+		{
+			rule = { name = "Telegram" },
+			properties = { tag = "Интернет" }
+		},
+		{
+			rule = { class = "VK" },
+			properties = { tag = "Интернет" }
+		},
+		{
+			rule = { class = "jetbrains-pycharm" },
+			properties = { tag = "Софт" }
+		},
+		{
+			rule = { class = "jetbrains-studio" },
+			properties = { tag = "Софт" }
+		},
+		{
+			rule = { class = "jetbrains-clion" },
+			properties = { tag = "Софт" }
+		},
+		{
+			rule = { class = "jetbrains-idea" },
+			properties = { tag = "Софт" }
+		},
+		{
+			rule = { class = "jetbrains-rubymine" },
+			properties = { tag = "Софт" }
+		},
+		{
+			rule = { name = "Glade" },
+			properties = { tag = "Софт" }
+		},
+		{
+			rule = { name = "Inkscape" },
+			properties = { tag = "Софт" }
+		},
+		{
+			rule = { class = "DesktopEditors" },
+			properties = { tag = "Офис" }
+		},
+		{
+			rule = { name = "mpv" },
+            properties = {
+                sticky = true,
+                ontop  = true
+            }
+		},
 	}
 
 

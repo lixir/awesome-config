@@ -4,6 +4,7 @@
 
 -- Grab environment
 local awful = require("awful")
+local gears = require("gears")
 local beautiful = require("beautiful")
 
 
@@ -77,8 +78,14 @@ function signals:init(args)
 	-- hilight border of focused window
 	-- can be disabled since focus indicated by titlebars in current config
 	if env.color_border_focus then
-		client.connect_signal("focus",   function(c) c.border_color = beautiful.border_focus end)
-		client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_normal end)
+		client.connect_signal("focus",   function(c)
+			c.border_color = beautiful.border_focus
+			c.opacity = 1
+		end)
+		client.connect_signal("unfocus", function(c)
+			c.border_color = beautiful.border_normal
+			c.opacity = 0.7
+		end)
 	end
 
 	-- wallpaper update on screen geometry change
@@ -90,6 +97,18 @@ function signals:init(args)
 	-- For reference, screen-dependent widgets are
 	-- redflat.widget.layoutbox, redflat.widget.taglist, redflat.widget.tasklist
 	screen.connect_signal("list", awesome.restart)
+
+	-- wallpaper update on tag change
+	awful.tag.attached_connect_signal(s ,"property::selected",
+			function(t)
+
+                local sel = awful.tag.object.get_index(t)
+                if sel and beautiful.wallpaper[sel] then
+                    gears.wallpaper.maximized(beautiful.wallpaper[sel], sel)
+                end
+
+		 	end
+    )
 end
 
 -- End
