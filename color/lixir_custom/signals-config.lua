@@ -77,16 +77,19 @@ function signals:init(args)
 
 	-- hilight border of focused window
 	-- can be disabled since focus indicated by titlebars in current config
-	if env.color_border_focus then
-		client.connect_signal("focus",   function(c)
-			c.border_color = beautiful.border_focus
-			c.opacity = 1
-		end)
-		client.connect_signal("unfocus", function(c)
-			c.border_color = beautiful.border_normal
-			c.opacity = 0.7
-		end)
-	end
+	local black = "#000000"
+
+	client.connect_signal("focus",   function(c)
+			c.border_color = beautiful.border_focus or black
+			--c.opacity = 1
+		end
+	)
+
+	client.connect_signal("unfocus", function(c)
+			c.border_color = beautiful.border_normal or black
+			--c.opacity = 0.9
+		end
+	)
 
 	-- wallpaper update on screen geometry change
 	screen.connect_signal("property::geometry", env.wallpaper)

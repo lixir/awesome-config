@@ -97,23 +97,23 @@ function rules:init(args)
 		},
 		{
 			rule = { class = "jetbrains-pycharm" },
-			properties = { tag = "Софт" }
+			properties = { tag = "Софт", opacity = 0.8 }
 		},
 		{
 			rule = { class = "jetbrains-studio" },
-			properties = { tag = "Софт" }
+			properties = { tag = "Софт", opacity = 0.8 }
 		},
 		{
 			rule = { class = "jetbrains-clion" },
-			properties = { tag = "Софт" }
+			properties = { tag = "Софт", opacity = 0.8 }
 		},
 		{
 			rule = { class = "jetbrains-idea" },
-			properties = { tag = "Софт" }
+			properties = { tag = "Софт", opacity = 0.8 }
 		},
 		{
 			rule = { class = "jetbrains-rubymine" },
-			properties = { tag = "Софт" }
+			properties = { tag = "Софт", opacity = 0.8 }
 		},
 		{
 			rule = { name = "Glade" },
@@ -130,8 +130,9 @@ function rules:init(args)
 		{
 			rule = { name = "mpv" },
             properties = {
-                sticky = true,
-                ontop  = true
+                sticky   = true,
+                ontop    = true,
+				floating = true
             }
 		},
 	}

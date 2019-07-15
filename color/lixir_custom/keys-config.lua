@@ -5,6 +5,7 @@
 -- Grab environment
 local table = table
 local awful = require("awful")
+local wibox = require("wibox")
 local redflat = require("redflat")
 
 -- Initialize tables and vars for module
@@ -142,7 +143,8 @@ end
 -- right bottom corner position
 local rb_corner = function()
     return { x = screen[mouse.screen].workarea.x + screen[mouse.screen].workarea.width,
-             y = screen[mouse.screen].workarea.y + screen[mouse.screen].workarea.height }
+             --y = screen[mouse.screen].workarea.y + screen[mouse.screen].workarea.height }
+             y = 0 }
 end
 
 -- Build hotkeys depended on config parameters
@@ -301,9 +303,7 @@ function hotkeys:init(args)
             {} -- hidden key
         },
         {
-            { env.mod }, "F1", function()
-            redtip:show()
-        end,
+            { env.mod }, "F1", function() redtip:show() end,
             { description = "Show hotkeys helper", group = "Action" }
         },
     }
@@ -786,12 +786,21 @@ function hotkeys:init(args)
             { description = "Reload awesome", group = "Main" }
         },
         {
+            { env.mod }, "h", function() redflat.float.control:show() end,
+            { description = "[Hold] Floating window control mode", group = "Main" }
+        },
+        {
             { env.mod }, "c", function()
             redflat.float.keychain:activate(keyseq, "User")
         end,
             { description = "User key sequence", group = "Main" }
         },
-
+        {
+            { env.mod }, "`", function()
+                redflat.float.quake:toggle(mouse.screen)
+            end,
+            { description = "Quake console", group = "Main" }
+        },
         {
             { env.mod }, "Return", function()
             awful.spawn(env.terminal)
@@ -799,18 +808,15 @@ function hotkeys:init(args)
             { description = "Open a terminal", group = "Applications" }
         },
         {
-            { env.mod, "Mod1" }, "space", function()
+            { env.mod, "Control" }, "space", function()
             awful.spawn("clipflap --show")
         end,
             { description = "Clipboard manager", group = "Applications" }
         },
         {
-            {}, "Print", function()
-            awful.spawn("flameshot gui")
-        end,
+            {}, "Print", function() awful.spawn("flameshot gui") end,
             { description = "Make screenshot", group = "Applications" }
         },
-
         {
             { env.mod }, "l", focus_switch_byd("right"),
             { description = "Go to right client", group = "Client focus" }
@@ -859,12 +865,6 @@ function hotkeys:init(args)
             redflat.float.top:show("cpu")
         end,
             { description = "Show the top process list", group = "Widgets" }
-        },
-        {
-            { env.mod, "Control" }, "m", function()
-            redflat.widget.mail:update()
-        end,
-            { description = "Check new mail", group = "Widgets" }
         },
         {
             { env.mod, "Control" }, "i", function()

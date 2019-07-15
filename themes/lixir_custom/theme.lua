@@ -1,5 +1,5 @@
 -----------------------------------------------------------------------------------------------------------------------
---                                                   lixir_custom theme                                                      --
+--                                                   lixir_custom theme                                              --
 -----------------------------------------------------------------------------------------------------------------------
 local awful = require("awful")
 
@@ -9,13 +9,13 @@ local theme = require("themes/colored/theme")
 -- Color scheme
 -----------------------------------------------------------------------------------------------------------------------
 theme.color = {
-	main      = "#064E71",
+	main      = "#0000ff",
 	gray      = "#575757",
 	bg        = "#16161690",
 	bg_second = "#181818",
 	wibox     = "#20202090",
-	icon      = "#a0a0a0",
-	text      = "#aaaaaa",
+	icon      = "#dddddd",
+	text      = "#dddddd",
 	urgent    = "#B32601",
 	highlight = "#e0e0e0",
 
@@ -35,7 +35,7 @@ theme.homedir = os.getenv("HOME")
 ------------------------------------------------------------
 
 theme.panel_height        = 36 -- panel height
-theme.border_width        = 1  -- window border width
+theme.border_width        = 4  -- window border width
 theme.useless_gap         = 0  -- useless gap
 
 theme.cellnum = { x = 96, y = 58 } -- grid layout property
@@ -63,13 +63,9 @@ theme.fonts = {
 	titlebar_bold   = "Roboto 2",
 	titlebar_iconic = "Roboto bold 13",  
 	hotkeys         = {
-		main        = "Roboto 14",             -- hotkeys helper main font
-		key         = "Iosevka Term Light 14", -- hotkeys helper key font (use monospace for align)
-		title       = "Roboto bold 16",        -- hotkeys helper group title font
-	},
-	player          = {
-		main        = "Play bold 13", -- player widget main font
-		time        = "Play bold 15", -- player widget current time font
+		main        = "DejaVu Sans Mono 14", -- hotkeys helper main font
+		key         = "DejaVu Sans Mono 14", -- hotkeys helper key font (use monospace for align)
+		title       = "DejaVu Sans Mono 16", -- hotkeys helper group title font
 	},
 }
 
@@ -104,6 +100,16 @@ theme.icon.widget = {
 -----------------------------------------------------------------------------------------------------------------------
 theme.desktop = { common = {} }
 
+-- Calendar config
+-----------------------------------------------------------------------------------------------------------------------
+theme.desktop.calendar = {
+	show_pointer = true,
+	label        = { gap = 12, font = { font = "Sans", size = 18, face = 1, slant = 0 }, sep = "-" },
+	mark         = { height = 20, width = 40, dx = 10, line = 4 },
+	color        = { main = "#0000fff0", wibox = "#00000000", gray = "#00fffff0", bg = "#FFFFFFFF" }
+}
+
+
 -- Common
 --------------------------------------------------------------------------------
 theme.desktop.line_height = 18
@@ -112,91 +118,6 @@ theme.desktop.color = {
 	main  = theme.color.main,
 	gray  = theme.color.gray_desktop or "#404040",
 	wibox = theme.color.bg .. "00"
-}
-
--- Textbox
-------------------------------------------------------------
-theme.desktop.common.textbox = {
-	font = { font = "prototype", size = 24, face = 0 }
-}
-
--- Dashbar
-------------------------------------------------------------
-theme.desktop.common.dashbar = {
-	bar = { width = 6, gap = 6 }
-}
-
--- Barpack
-------------------------------------------------------------
-theme.desktop.common.barpack = {
-	label_style = { width = 80, draw = "by_width" },
-	text_style  = { width = 92, draw = "by_edges" },
-	line_height = theme.desktop.line_height,
-	text_gap    = 22,
-	label_gap   = 16,
-	color       = theme.desktop.color
-}
-
--- Widgets
---------------------------------------------------------------------------------
-
--- Network speed
-------------------------------------------------------------
-theme.desktop.speedmeter = {
-	label            = { height = theme.desktop.line_height },
-	dashbar          = { bar = { width = 16, gap = 6 }, height = 6 },
-	chart            = { bar = { width = 6, gap = 3 }, height = 40, zero_height = 4 },
-	barvalue_height  = 32,
-	fullchart_height = 80,
-	images           = { theme.path .. "/desktop/up.svg", theme.path .. "/desktop/down.svg" },
-	image_gap        = 16,
-	color            = theme.desktop.color
-}
-
--- CPU and memory
-------------------------------------------------------------
-theme.desktop.multim = {
-	corner       = { width = 34, corner = { height = 17, num = 10, line = 4 } },
-	state_height = 58,
-	prog_height  = 80,
-	image_gap    = 16,
-	image        = theme.path .. "/desktop/bstar.svg",
-	color        = theme.desktop.color
-}
-
--- Disks
-------------------------------------------------------------
-theme.desktop.dashpack = {
-	color = theme.desktop.color
-}
-
--- Thermal
-------------------------------------------------------------
-theme.desktop.sline = {
-	digit_num = 2,
-	lbox      = { draw = "by_width", width = 50 },
-	rbox      = { draw = "by_edges", width = 60 },
-	icon      = theme.path .. "/desktop/star.svg",
-	iwidth    = 142,
-	color     = theme.desktop.color
-}
-
--- Widgets placement
---------------------------------------------------------------------------------
-theme.desktop.grid = {
-	width  = { 520, 520, 520 },
-	height = { 180, 160, 160, 138, 18 },
-	edge   = { width = { 60, 60 }, height = { 40, 40 } }
-}
-
-theme.desktop.places = {
-	netspeed = { 1, 1 },
-	ssdspeed = { 2, 1 },
-	hddspeed = { 3, 1 },
-	cpumem   = { 1, 2 },
-	transm   = { 1, 3 },
-	disks    = { 1, 4 },
-	thermal  = { 1, 5 }
 }
 
 
@@ -228,7 +149,7 @@ theme.service.navigator.keytip["tileleft"]   = theme.service.navigator.keytip["t
 theme.service.navigator.keytip["tiletop"]    = theme.service.navigator.keytip["tile"]
 theme.service.navigator.keytip["tilebottom"] = theme.service.navigator.keytip["tile"]
 
-theme.service.navigator.keytip["grid"] = { geometry = { width = 1400, height = 520 }, column = 2, exit = true }
+theme.service.navigator.keytip["grid"]    = { geometry = { width = 1400, height = 520 }, column = 2, exit = true }
 theme.service.navigator.keytip["usermap"] = { geometry = { width = 1400, height = 580 }, column = 2, exit = true }
 
 -- Desktop file parser
@@ -357,7 +278,6 @@ theme.widget.wrapper = {
 	network     = { 10, 10, 5, 5 },
 	cpuram      = { 10, 10, 5, 5 },
 	keyboard    = { 10, 10, 4, 4 },
-	mail        = { 10, 10, 4, 4 },
 	battery     = { 8, 10, 7, 7 },
 	tray        = { 8, 8, 7, 7 },
 	tasklist    = { 4, 0, 0, 0 }, -- centering tasklist widget
@@ -411,14 +331,6 @@ theme.widget.keyboard.menu = {
 theme.widget.upgrades = {
 	notify      = { icon = theme.path .. "/widget/upgrades.svg" },
 	color       = theme.color
-}
-
--- Mail
-------------------------------------------------------------
-theme.widget.mail = {
-	icon        = theme.path .. "/widget/mail.svg",
-	notify      = { icon = theme.path .. "/widget/mail.svg" },
-	color       = theme.color,
 }
 
 -- Minitray
@@ -572,31 +484,31 @@ theme.float.clientmenu = {
 
 -- Audio player
 ------------------------------------------------------------
-theme.float.player = {
-	geometry     = { width = 490, height = 130 },
-	screen_gap   = 2 * theme.useless_gap,
-	border_gap   = { 15, 15, 15, 15 },
-	elements_gap = { 15, 0, 0, 0 },
-	control_gap  = { 0, 0, 14, 6 },
-	line_height  = 26,
-	bar_width    = 6,
-	titlefont    = theme.fonts.player.main,
-	artistfont   = theme.fonts.player.main,
-	timefont     = theme.fonts.player.time,
-	dashcontrol  = { color = theme.color, bar = { num = 7 } },
-	progressbar  = { color = theme.color },
-	border_width = 0,
-	timeout      = 1,
-	color        = theme.color
-}
+--theme.float.player = {
+--	geometry     = { width = 490, height = 130 },
+--	screen_gap   = 2 * theme.useless_gap,
+--	border_gap   = { 15, 15, 15, 15 },
+--	elements_gap = { 15, 0, 0, 0 },
+--	control_gap  = { 0, 0, 14, 6 },
+--	line_height  = 26,
+--	bar_width    = 6,
+--	titlefont    = theme.fonts.player.main,
+--	artistfont   = theme.fonts.player.main,
+--	timefont     = theme.fonts.player.time,
+--	dashcontrol  = { color = theme.color, bar = { num = 7 } },
+--	progressbar  = { color = theme.color },
+--	border_width = 0,
+--	timeout      = 1,
+--	color        = theme.color
+--}
 
-theme.float.player.icon = {
-	cover   = theme.path .. "/common/player/cover.svg",
-	next_tr = theme.path .. "/common/player/next.svg",
-	prev_tr = theme.path .. "/common/player/previous.svg",
-	play    = theme.path .. "/common/player/play.svg",
-	pause   = theme.path .. "/common/player/pause.svg"
-}
+--theme.float.player.icon = {
+--	cover   = theme.path .. "/common/player/cover.svg",
+--	next_tr = theme.path .. "/common/player/next.svg",
+--	prev_tr = theme.path .. "/common/player/previous.svg",
+--	play    = theme.path .. "/common/player/play.svg",
+--	pause   = theme.path .. "/common/player/pause.svg"
+--}
 
 -- Application runner
 ------------------------------------------------------------
@@ -667,7 +579,14 @@ theme.float.hotkeys =  {
 	font          = theme.fonts.hotkeys.main,
 	keyfont       = theme.fonts.hotkeys.key,
 	titlefont     = theme.fonts.hotkeys.title,
-	color         = theme.color
+	color         = {
+		border     = "#404040",
+		text       = "#dddddd",
+		main       = "#0000ff",
+		wibox      = "#202020d0",
+		blue       = "#0000ff",
+		light_blue = "#00ffff"
+	}
 }
 
 -- Tooltip
@@ -744,15 +663,41 @@ theme.float.decoration.field = {
 
 -- Titlebar
 -----------------------------------------------------------------------------------------------------------------------
---[[theme.titlebar = {
-	size          = 12,
+theme.titlebar.base = {
+	size          = 8,
 	position      = "top",
-	font          = theme.fonts.titlebar,
-	icon          = { size = 30, gap = 10 },
+	font          = "Sans 12 bold",
 	border_margin = { 0, 0, 0, 4 },
-	color         = theme.color.main,
-}]]
+	color         = { main = theme.color.main, wibox = "#202020d0", gray = theme.color.gray,
+					  text = theme.color.text, icon = theme.color.icon, urgent = theme.color.icon }
+}
 
+theme.titlebar.mark = {
+	size  = 20,
+	angle = 0,
+	color = theme.titlebar.base.color
+}
+
+theme.titlebar.icon = {
+	color        = { icon = theme.color.gray, main = theme.color.main, urgent = theme.color.icon },
+	list         = {
+		maximized = theme.path .. "/titlebar/maximized.svg",
+		minimized = theme.path .. "/titlebar/minimize.svg",
+		close     = theme.path .. "/titlebar/close.svg",
+		focus     = theme.path .. "/titlebar/focus.svg",
+		absent    = theme.path .. "/titlebar/absent.svg",
+		active    = theme.path .. "/titlebar/active.svg",
+		below     = theme.path .. "/titlebar/below.svg",
+		disabled  = theme.path .. "/titlebar/disabled.svg",
+		floating  = theme.path .. "/titlebar/floating.svg",
+		hidden    = theme.path .. "/titlebar/hidden.svg",
+		menu      = theme.path .. "/titlebar/menu.svg",
+		ontop     = theme.path .. "/titlebar/ontop.svg",
+		sticky    = theme.path .. "/titlebar/pin.svg",
+		title     = theme.path .. "/titlebar/title.svg",
+		unknown   = theme.icon.unknown,
+	}
+}
 -- Naughty config
 -----------------------------------------------------------------------------------------------------------------------
 theme.naughty = {}
@@ -789,7 +734,7 @@ theme.fg_urgent     = theme.color.highlight
 theme.fg_minimize   = theme.color.highlight
 
 theme.border_normal = theme.color.wibox
-theme.border_focus  = theme.color.wibox
+theme.border_focus  = theme.color.main
 theme.border_marked = theme.color.main
 
 -- font

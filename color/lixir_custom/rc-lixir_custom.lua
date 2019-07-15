@@ -27,6 +27,10 @@ redflat.startup:activate()
 -----------------------------------------------------------------------------------------------------------------------
 require("color.lixir_custom.ercheck-config") -- load file with error handling
 
+-- Setup theme and environment vars
+-----------------------------------------------------------------------------------------------------------------------
+local env = require("color.blue.env-config") -- load file with environment
+env:init({ theme = "ruby", desktop_autohide = true, set_center = true })
 
 -- Setup theme and environment vars
 -----------------------------------------------------------------------------------------------------------------------
@@ -120,14 +124,32 @@ volume.widget = redflat.widget.pulse(nil, { widget = redflat.gauge.audio.blue.ne
 -- activate player widget
 redflat.float.player:init({ name = env.player })
 
+-- volume functions
+local volume_raise = function(args)
+	redflat.widget.pulse:change_volume({ show_notify = true, step = args.step or {}})
+end
+local volume_lower = function(args)
+	redflat.widget.pulse:change_volume({ show_notify = true, down = true, step = args.step or {}})
+end
+local volume_mute = function()
+	redflat.widget.pulse:mute()
+end
+
+-- right bottom corner position
+local rb_corner = function()
+	return { x = screen[mouse.screen].workarea.x + screen[mouse.screen].workarea.width,
+			 --y = screen[mouse.screen].workarea.y + screen[mouse.screen].workarea.height }
+			 y = 0 }
+end
+
 volume.buttons = awful.util.table.join(
-	awful.button({}, 4, function() redflat.widget.pulse:change_volume()                end),
-	awful.button({}, 5, function() redflat.widget.pulse:change_volume({ down = true }) end),
-	awful.button({}, 2, function() redflat.widget.pulse:mute()                         end),
-	awful.button({}, 3, function() redflat.float.player:show()                         end),
-	awful.button({}, 1, function() redflat.float.player:action("PlayPause")            end),
-	awful.button({}, 8, function() redflat.float.player:action("Previous")             end),
-	awful.button({}, 9, function() redflat.float.player:action("Next")                 end)
+	awful.button({}, 1, volume_mute ),
+	awful.button({}, 4, function() volume_lower({step = 655 * 1})     end),
+	awful.button({}, 5, function() volume_raise({step = 655 * 1})     end),
+	awful.button({}, 3, function() redflat.float.player:show(rb_corner())   end),
+	awful.button({}, 2, function() redflat.float.player:action("PlayPause") end),
+	awful.button({}, 8, function() redflat.float.player:action("Previous")  end),
+	awful.button({}, 9, function() redflat.float.player:action("Next")      end)
 )
 
 -- Keyboard layout indicator
@@ -142,25 +164,6 @@ kbindicator.buttons = awful.util.table.join(
 		awful.button({}, 5, function () redflat.widget.keyboard:toggle(true)  end)
 )
 
--- Mail widget
---------------------------------------------------------------------------------
--- mail settings template
-local my_mails = require("color.lixir_custom.mail-example")
-
--- safe load private mail settings
-pcall(function() my_mails = require("private.mail-config") end)
-
--- widget setup
-local mail = {}
-redflat.widget.mail:init({ maillist = my_mails })
-mail.widget = redflat.widget.mail()
-
--- buttons
-mail.buttons = awful.util.table.join(
-		awful.button({ }, 1, function () awful.spawn.with_shell(env.mail) end),
-		awful.button({ }, 2, function () redflat.widget.mail:update(true) end)
-)
-
 -- System resource monitoring widgets
 --------------------------------------------------------------------------------
 local sysmon = { widget = {}, buttons = {}, icon = {} }
@@ -171,9 +174,10 @@ sysmon.icon.network = redflat.util.table.check(beautiful, "icon.widget.wireless"
 sysmon.icon.cpuram = redflat.util.table.check(beautiful, "icon.widget.monitor")
 
 -- battery
-sysmon.widget.battery = redflat.widget.sysmon(
-	{ func = redflat.system.pformatted.bat(25), arg = "BAT1" },
-	{ timeout = 60, widget = redflat.gauge.icon.single, monitor = { is_vertical = true, icon = sysmon.icon.battery } }
+sysmon.widget.battery = redflat.widget.battery(
+		{ func = redflat.system.pformatted.bat(25), arg = "BAT1" },
+		{ timeout = 10, widget = redflat.gauge.icon.single, monitor = { is_vertical = true,
+																		icon = sysmon.icon.battery } }
 )
 
 -- network speed
@@ -260,8 +264,6 @@ awful.screen.connect_for_each_screen(
 			{ -- right widgets
 				layout = wibox.layout.fixed.horizontal,
 
-				--separator,
-				--env.wrapper(mail.widget, "mail", mail.buttons),
 				separator,
 				env.wrapper(kbindicator.widget, "keyboard", kbindicator.buttons),
 				separator,
@@ -283,13 +285,17 @@ awful.screen.connect_for_each_screen(
 
 -- Desktop widgets
 -----------------------------------------------------------------------------------------------------------------------
---if not lock.desktop then
---	local desktop = require("color.lixir_custom.desktop-config") -- load file with desktop widgets configuration
---	desktop:init({
---		env = env,
---		buttons = awful.util.table.join(awful.button({}, 3, function () mymenu.mainmenu:toggle() end))
---	})
---end
+if not lock.desktop then
+	local desktop = require("color.lixir_custom.desktop-config") -- load file with desktop widgets configuration
+	desktop:init({
+		env = env,
+		buttons = awful.util.table.join(awful.button({}, 3, function () mymenu.mainmenu:toggle() end))
+	})
+end
+
+-- Quake console
+-----------------------------------------------------------------------------------------------------------------------
+redflat.float.quake:init()
 
 
 -- Active screen edges
@@ -314,7 +320,7 @@ rules:init({ hotkeys = hotkeys})
 
 -- Titlebar setup
 -----------------------------------------------------------------------------------------------------------------------
-local titlebar = require("colorless.titlebar-config") -- load file with titlebar configuration
+local titlebar = require("color.lixir_custom.titlebar-config") -- load file with titlebar configuration
 titlebar:init()
 
 
