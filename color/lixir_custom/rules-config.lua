@@ -97,23 +97,27 @@ function rules:init(args)
 		},
 		{
 			rule = { class = "jetbrains-pycharm" },
-			properties = { tag = "Софт", opacity = 0.8 }
+			properties = { tag = "Софт", opacity = 0.95 }
 		},
 		{
 			rule = { class = "jetbrains-studio" },
-			properties = { tag = "Софт", opacity = 0.8 }
+			properties = { tag = "Софт", opacity = 0.95 }
 		},
 		{
 			rule = { class = "jetbrains-clion" },
-			properties = { tag = "Софт", opacity = 0.8 }
+			properties = { tag = "Софт", opacity = 0.95 }
 		},
 		{
 			rule = { class = "jetbrains-idea" },
-			properties = { tag = "Софт", opacity = 0.8 }
+			properties = { tag = "Софт", opacity = 0.95 }
 		},
 		{
 			rule = { class = "jetbrains-rubymine" },
-			properties = { tag = "Софт", opacity = 0.8 }
+			properties = { tag = "Софт", opacity = 0.95 }
+		},
+		{
+			rule = { class = "Subl3" },
+			properties = { opacity = 0.95 }
 		},
 		{
 			rule = { name = "Glade" },

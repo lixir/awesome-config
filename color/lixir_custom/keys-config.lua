@@ -5,7 +5,7 @@
 -- Grab environment
 local table = table
 local awful = require("awful")
-local wibox = require("wibox")
+--local wibox = require("wibox")
 local redflat = require("redflat")
 
 -- Initialize tables and vars for module
@@ -841,9 +841,18 @@ function hotkeys:init(args)
             { env.mod }, "Tab", focus_to_previous,
             { description = "Go to previos client", group = "Client focus" }
         },
-
         {
             { env.mod }, "w", function()
+                awful.screen.connect_for_each_screen(
+                        function(s)
+                            s.panel.visible = not s.panel.visible
+                        end
+                )
+            end,
+            { description = "Show/hide wibar", group = "Widgets" }
+        },
+        {
+            { env.mod, "Control" }, "w", function()
             mainmenu:show()
         end,
             { description = "Show main menu", group = "Widgets" }
@@ -966,7 +975,7 @@ function hotkeys:init(args)
             { description = "Increase volume", group = "Volume control" }
         },
         {
-            { env.mod }, "XF86AudioRaiseVolume", function() volume_raise({step = 655 * 1}) end,
+            { env.mod }, "F8", function() volume_raise({step = 655 * 1}) end,
             { description = "Increase volume 1%", group = "Volume control" }
         },
         {
@@ -974,14 +983,13 @@ function hotkeys:init(args)
             { description = "Reduce volume", group = "Volume control" }
         },
         {
-            { env.mod }, "XF86AudioLowerVolume", function() volume_lower({step = 655 * 1}) end,
+            { env.mod }, "F7", function() volume_lower({step = 655 * 1}) end,
             { description = "Reduce volume 1%", group = "Volume control" }
         },
         {
             {}, "XF86AudioMute", volume_mute,
             { description = "Toggle mute", group = "Volume control" }
         },
-
         {
             { env.mod }, "e", function()
             redflat.float.player:show(rb_corner())
@@ -1006,7 +1014,6 @@ function hotkeys:init(args)
         end,
             { description = "Previous track", group = "Audio player" }
         },
-
         {
             { env.mod }, "y", function()
             laybox:toggle_menu(mouse.screen.selected_tag)
@@ -1074,6 +1081,20 @@ function hotkeys:init(args)
             c:raise()
         end,
             { description = "Maximize", group = "Client keys" }
+        },
+        {
+            { env.mod, "Control" }, "=", function(c)
+            c.opacity = c.opacity + 0.01
+            if c.opacity > 1 then c.opacity = 1 end
+        end,
+            { description = "Increase opacity", group = "Client keys" }
+        },
+        {
+            { env.mod, "Control" }, "-", function(c)
+            c.opacity = c.opacity - 0.01
+            if c.opacity < 0 then c.opacity = 0 end
+        end,
+            { description = "Decrease opacity", group = "Client keys" }
         }
     }
 

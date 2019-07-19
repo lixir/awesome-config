@@ -9,6 +9,7 @@
 ------------------------------------------------------------
 local awful = require("awful")
 local wibox = require("wibox")
+local gears = require("gears")
 local beautiful = require("beautiful")
 
 require("awful.autofocus")
@@ -63,7 +64,7 @@ local tasklist = {}
 
 -- load list of app name aliases from files and set it as part of tasklist theme
 --tasklist.style = { appnames = require("lixir_custom.alias-config")}
-tasklist.style = { widget = redflat.gauge.task.green.new }
+tasklist.style = { widget = redflat.gauge.task.lixir_custom.new }
 
 tasklist.buttons = awful.util.table.join(
 	awful.button({}, 1, redflat.widget.tasklist.action.select),
@@ -285,13 +286,13 @@ awful.screen.connect_for_each_screen(
 
 -- Desktop widgets
 -----------------------------------------------------------------------------------------------------------------------
-if not lock.desktop then
-	local desktop = require("color.lixir_custom.desktop-config") -- load file with desktop widgets configuration
-	desktop:init({
-		env = env,
-		buttons = awful.util.table.join(awful.button({}, 3, function () mymenu.mainmenu:toggle() end))
-	})
-end
+--if not lock.desktop then
+--	local desktop = require("color.lixir_custom.desktop-config") -- load file with desktop widgets configuration
+--	desktop:init({
+--		env = env,
+--		buttons = awful.util.table.join(awful.button({}, 3, function () mymenu.mainmenu:toggle() end))
+--	})
+--end
 
 -- Quake console
 -----------------------------------------------------------------------------------------------------------------------
